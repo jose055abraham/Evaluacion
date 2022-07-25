@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script</title>
+</head>
+<body>
+    <script>
+        let nombre_usuario = "";
+        let numero_transacción = 0, numero_operaciones = 0;
+        let vuelto = 0, precio = 0, cantidad = 0, moneda = 0;
+
+        function Menu() {
+            nombre_usuario = prompt("Ingrese Su Nombre:\n")
+            do {
+                
+                let opción = prompt("Selecciona Un Producto:\nProducto: A $270\nProducto: B $340\nProducto: C $390\nSalir: S")
+                switch (opción) {
+                    case 'A': ProductoA(); break;
+                    case 'B': ProductoB(); break;
+                    case 'C': ProductoC(); break;                
+                    case 'S':
+                         alert(`Cliente: ${nombre_usuario}\nNumero de Transacciones: ${numero_transacción}\nNumero de Operaciones: ${numero_operaciones}`) 
+                         return false;
+                    break;                
+                    default: 
+                      return false; 
+                    break;
+                }
+
+            } while (true);
+        }
+
+        function ProductoA(){
+            precio = 270;
+            TipoMoneda()
+        }
+
+        function ProductoB(){
+            precio = 340;
+            TipoMoneda()
+        }
+
+        function ProductoC(){
+            precio = 390;
+            TipoMoneda()
+        }
+
+        function TipoMoneda(){
+            cantidad = 0;
+            do {
+                moneda = parseInt(prompt(`Precio del producto:$${precio}\nTotal ingresado: ${cantidad}\nIngresar moneda:`))
+
+                switch (moneda) {
+                    case 10: cantidad = cantidad + 10; break;
+                    case 50: cantidad = cantidad + 50; break;
+                    case 100: cantidad = cantidad + 100; break;
+                    
+                    default:
+                        prompt("Ingresa una moneda correcta!")
+                        moneda = 0;
+                        break;
+                }
+                numero_operaciones = numero_operaciones + 1;
+            } while (cantidad < precio);
+            Vuelto()
+        }
+
+        function Vuelto(){
+            let monedas = "";
+            if(cantidad > precio) {
+                vuelto = cantidad - precio;
+
+                do {
+                    
+                    if (vuelto >= 50) {
+                        vuelto = vuelto - 50;
+                        monedas = monedas + "\n$50";
+                    }
+
+                    if (vuelto < 50) {
+                        vuelto = vuelto - 10;
+                        monedas = monedas + "\n$10";
+
+                    }
+
+                } while (vuelto > 0);
+
+                numero_transacción = numero_transacción + 1;
+                prompt(`Precio Producto: ${precio}\nTotal ingresado: ${cantidad}\nVuelto: ${monedas}`)
+            }
+        }
+
+        Menu()
+    </script>
+</body>
+</html>
